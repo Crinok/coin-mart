@@ -1,21 +1,31 @@
 import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
+    wrapper: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#24252f'
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    container: {
+        paddingTop: 15,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
+    text:{
+        textAlign: 'left',
+        paddingVertical: 15,
+        color: '#fff',
+    },
+    row:{
+        borderBottomWidth: 1,
+        borderColor: '#576075',
+        paddingHorizontal: 20,
+    },
+    rowFirstChild:{
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: '#576075',
+        paddingHorizontal: 20,
     },
 });
 

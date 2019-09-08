@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native'
+import {FlatList, ScrollView, Text, View, SafeAreaView} from 'react-native';
 import {connect} from "react-redux";
 import {styles} from "./styles";
 import {listingsActionCreator} from "../../_store/_actionCreators";
@@ -12,14 +12,42 @@ class ListingsScreen extends Component{
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
-        const { listings } = this.props;
+        const { listings, loadingReduxState } = this.props;
+        const {wrapper, container, rowFirstChild, row, text} = styles;
 
-        console.log("listings: ",listings);
+        if(loadingReduxState){
+            return (
+                <View style={wrapper}>
+                    <Text style={text}>Loading...</Text>
+                </View>
+            )
+        }
+
+        console.log("listings: ", listings.data);
+
 
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>Welcome to Coin mart!</Text>
-            </View>
+            <SafeAreaView style={wrapper}>
+
+                <ScrollView>
+
+                    <View style={container}>
+                        <FlatList
+                            style={{paddingVertical: 25}}
+                            data={listings.data}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({item, index}) =>
+
+                                <View style={index === 0 ? rowFirstChild : row}>
+                                    <Text style={text}>{item.name}</Text>
+                                </View>
+                            }
+                            keyExtractor={item => item.id.toString()}
+                        />
+                    </View>
+
+                </ScrollView>
+            </SafeAreaView>
         );
     }
 
@@ -27,9 +55,10 @@ class ListingsScreen extends Component{
 
 
 const mapStateToProps = (state) => {
-    const { listings } = state;
+    const { listingsData : {listings, loading} } = state;
     return {
-        listings: listings,
+        listings: listings.data,
+        loadingReduxState: loading
     };
 };
 

@@ -6,7 +6,7 @@ import {listingsReducer} from '../_reducers'
  */
 
 const rootReducer = combineReducers({
-    listings: listingsReducer
+    listingsData: listingsReducer
 });
 
 export default rootReducer;
